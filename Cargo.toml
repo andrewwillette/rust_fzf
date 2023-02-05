@@ -3,6 +3,5 @@ name = "rust_fzf"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
-[dependencies]
+description = "A library to select an item using the fzf CLI tool"
+license = "MIT"
