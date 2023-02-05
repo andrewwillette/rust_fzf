@@ -23,7 +23,7 @@ pub fn fzf_select(fzf_input: Vec<String>) -> String {
     let output = child
         .wait_with_output()
         .expect("Failed to read fzf command stdout");
-    String::from(str::from_utf8(&output.stdout).unwrap())
+    String::from(str::from_utf8(&output.stdout).unwrap().trim())
 }
 
 #[cfg(test)]
@@ -33,6 +33,7 @@ mod tests {
     #[test]
     fn test_fzf_select() {
         let test_input = vec!["test".to_string(), "me".to_string()];
-        print!("{}", fzf_select(test_input));
+        let output = fzf_select(test_input);
+        assert_eq!("test", output);
     }
 }
