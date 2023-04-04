@@ -4,8 +4,9 @@ use std::str;
 
 /// Prompts the user to select the item in the CLI using the fzf tool.
 /// It's required that fzf is installed in the environment.
-pub fn fzf_select(fzf_input: Vec<String>) -> String {
+pub fn fzf_select(fzf_input: Vec<String>, args: Vec<String>) -> String {
     let mut child = Command::new("fzf")
+        .args(args)
         .stdin(Stdio::piped())
         .stdout(Stdio::piped())
         .spawn()
@@ -33,7 +34,7 @@ mod tests {
     #[test]
     fn test_fzf_select() {
         let test_input = vec!["test".to_string(), "me".to_string()];
-        let output = fzf_select(test_input);
+        let output = fzf_select(test_input, Vec::new());
         assert_eq!("test", output);
     }
 }
