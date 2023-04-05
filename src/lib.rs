@@ -37,4 +37,11 @@ mod tests {
         let output = fzf_select(test_input, Vec::new());
         assert_eq!("test", output);
     }
+
+    #[test]
+    fn test_fzf_select_with_args() {
+        let test_input = vec!["test".to_string(), "me".to_string()];
+        let output = fzf_select(test_input, vec![String::from("--layout=reverse")]);
+        assert_eq!("test", output);
+    }
 }
