@@ -4,7 +4,7 @@ use std::str;
 
 /// Prompts the user to select the item in the CLI using the fzf tool.
 /// It's required that fzf is installed in the environment.
-pub fn fzf_select(fzf_input: Vec<String>, args: Vec<String>) -> String {
+pub fn select(fzf_input: Vec<String>, args: Vec<String>) -> String {
     let mut child = Command::new("fzf")
         .args(args)
         .stdin(Stdio::piped())
@@ -34,14 +34,14 @@ mod tests {
     #[test]
     fn test_fzf_select() {
         let test_input = vec!["test".to_string(), "me".to_string()];
-        let output = fzf_select(test_input, Vec::new());
+        let output = select(test_input, Vec::new());
         assert_eq!("test", output);
     }
 
     #[test]
     fn test_fzf_select_with_args() {
         let test_input = vec!["test".to_string(), "me".to_string()];
-        let output = fzf_select(test_input, vec![String::from("--layout=reverse")]);
+        let output = select(test_input, vec![String::from("--layout=reverse")]);
         assert_eq!("test", output);
     }
 }
