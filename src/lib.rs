@@ -32,14 +32,14 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_fzf_select() {
+    fn test_select() {
         let test_input = vec!["test".to_string(), "me".to_string()];
         let output = select(test_input, Vec::new());
         assert_eq!("test", output);
     }
 
     #[test]
-    fn test_fzf_select_with_args() {
+    fn test_select_with_args() {
         let test_input = vec!["test".to_string(), "me".to_string()];
         let output = select(test_input, vec![String::from("--layout=reverse")]);
         assert_eq!("test", output);
