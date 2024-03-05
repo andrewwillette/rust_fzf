@@ -24,11 +24,24 @@ pub fn select(fzf_input: Vec<String>, args: Vec<String>) -> String {
     let output = child
         .wait_with_output()
         .expect("Failed to read fzf command stdout");
-    String::from(str::from_utf8(&output.stdout).unwrap().trim())
+    let mut selection = String::from(str::from_utf8(&output.stdout).unwrap());
+    trim_newline(&mut selection);
+    return selection;
+}
+
+fn trim_newline(s: &mut String) {
+    if s.ends_with('\n') {
+        s.pop();
+        if s.ends_with('\r') {
+            s.pop();
+        }
+    }
 }
 
 #[cfg(test)]
 mod tests {
+    // run with
+    // `cargo test -- --test-threads=1`
     use super::*;
 
     #[test]
@@ -43,5 +56,19 @@ mod tests {
         let test_input = vec!["test".to_string(), "me".to_string()];
         let output = select(test_input, vec![String::from("--layout=reverse")]);
         assert_eq!("test", output);
+    }
+
+    #[test]
+    fn test_select_with_trailing_spaces() {
+        let test_input = vec!["test ".to_string(), "me".to_string()];
+        let output = select(test_input, Vec::new());
+        assert_eq!("test ", output);
+    }
+
+    #[test]
+    fn test_select_with_middle_spaces() {
+        let test_input = vec!["test test ".to_string(), "me".to_string()];
+        let output = select(test_input, Vec::new());
+        assert_eq!("test test ", output);
     }
 }
