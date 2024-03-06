@@ -52,30 +52,6 @@ pub fn select(
     Ok(selections[..selections.len() - 1].to_vec())
 }
 
-fn validate_cli_tool_installed(cli_tool: String) -> bool {
-    Command::new(cli_tool)
-        .stdout(Stdio::null())
-        .stderr(Stdio::null())
-        .status()
-        .is_ok()
-}
-
-#[cfg(test)]
-mod validate_cli_tool_installed_tests {
-    use super::*;
-    #[test]
-    fn program_not_installed() {
-        let fzf_installed = validate_cli_tool_installed("fzffff".to_string());
-        assert_eq!(false, fzf_installed);
-    }
-
-    #[test]
-    fn program_installed() {
-        let fzf_installed = validate_cli_tool_installed("fzf".to_string());
-        assert_eq!(true, fzf_installed);
-    }
-}
-
 // run with
 // `cargo test -- --test-threads=1`
 #[cfg(test)]
@@ -124,5 +100,29 @@ mod select_tests {
         let mut expected_sorted = vec![expected, expected2];
         expected_sorted.sort();
         assert_eq!(expected_sorted, output);
+    }
+}
+
+fn validate_cli_tool_installed(cli_tool: String) -> bool {
+    Command::new(cli_tool)
+        .stdout(Stdio::null())
+        .stderr(Stdio::null())
+        .status()
+        .is_ok()
+}
+
+#[cfg(test)]
+mod validate_cli_tool_installed_tests {
+    use super::*;
+    #[test]
+    fn program_not_installed() {
+        let fzf_installed = validate_cli_tool_installed("fzffff".to_string());
+        assert_eq!(false, fzf_installed);
+    }
+
+    #[test]
+    fn program_installed() {
+        let fzf_installed = validate_cli_tool_installed("fzf".to_string());
+        assert_eq!(true, fzf_installed);
     }
 }
