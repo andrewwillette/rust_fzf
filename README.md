@@ -5,3 +5,11 @@ Rust library to allow for selecting an item using the `fzf` CLI tool.
 ```
 cargo add rust_fzf
 ```
+
+## Usage
+```rust
+let selected: Result<Vec<String>, String> = select(
+    vec!["hello".to_string(), "rust_fzf!".to_string()],
+    Vec::new(),
+);
+```
