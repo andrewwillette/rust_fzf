@@ -10,6 +10,6 @@ cargo add rust_fzf
 ```rust
 let selected: Result<Vec<String>, String> = select(
     vec!["hello".to_string(), "rust_fzf!".to_string()],
-    Vec::new(),
+    vec![String::from("--layout=reverse")],
 );
 ```
