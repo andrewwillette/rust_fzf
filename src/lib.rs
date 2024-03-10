@@ -70,7 +70,7 @@ mod select_tests {
     fn with_args() {
         let expected = "pickme";
         let test_input = vec![expected.to_string(), "me".to_string()];
-        let output = select(test_input, vec![String::from("--layout=reverse")]);
+        let output = select(test_input, vec!["--layout=reverse".to_string()]);
         assert_eq!(vec![expected], output.unwrap());
     }
 
